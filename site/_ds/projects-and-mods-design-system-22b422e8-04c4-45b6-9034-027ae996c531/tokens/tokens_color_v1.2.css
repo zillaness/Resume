@@ -1,0 +1,298 @@
+/**
+ * file: tokens_color_v1.2.css
+ * version: 1.2
+ * author: Samuel Cao
+ * created: 2026-07-25
+ * last_updated: 2026-07-26
+ * description: Color tokens for the Projects and Mods design system — white-dominant light theme, navy-tinted dark theme, brand gradient reserved as an accent.
+ * ai_update: Update last_updated and version. Rename file to match. Append changelog comment at bottom.
+ */
+
+/* ---------------------------------------------------------------------------
+   RAW BRAND VALUES — from projects_and_mods_logo_pack v1.2.
+   Do not use these directly in components. Use the semantic tokens below.
+   --------------------------------------------------------------------------- */
+:root {
+  --brand-navy: #15314a;
+  --brand-grad-1: #1f475e;
+  --brand-grad-2: #0e2c3e;
+  --brand-grad-3: #06222f;
+}
+
+/* ---------------------------------------------------------------------------
+   NEUTRAL RAMP
+   Desaturated from the brand hue (208deg) so grays sit with the navy instead of
+   fighting it. Kept cool and light — the system is mostly white by design.
+   --------------------------------------------------------------------------- */
+:root {
+  --neutral-0:   #ffffff;
+  --neutral-25:  #fbfcfd;
+  --neutral-50:  #f6f8fa;
+  --neutral-100: #eef2f5;
+  --neutral-200: #dfe6ec;
+  --neutral-300: #c3cfd9;
+  --neutral-400: #8b97a3;
+  --neutral-500: #5d6b7a;
+  --neutral-600: #4d5c6b;
+  --neutral-700: #35434f;
+  --neutral-800: #1f3543;
+  --neutral-900: #12222e;
+  --neutral-950: #0b1620;
+}
+
+/* ---------------------------------------------------------------------------
+   SEMANTIC TOKENS — LIGHT (default)
+   Every text/background pair below is verified >= 4.5:1. See README contrast table.
+   --------------------------------------------------------------------------- */
+:root {
+  color-scheme: light;
+
+  /* Surfaces — white carries the system. */
+  --ds-surface:         var(--neutral-0);
+  --ds-surface-sunken:  var(--neutral-50);
+  --ds-surface-raised:  var(--neutral-0);
+  --ds-surface-inset:   var(--neutral-100);
+
+  /* Lines */
+  --ds-border:          var(--neutral-200);
+  --ds-border-strong:   var(--neutral-300);
+
+  /* Text */
+  --ds-text:            var(--brand-navy);   /* 13.4:1 on white */
+  --ds-text-muted:      var(--neutral-600);  /*  6.9:1 on white */
+  --ds-text-subtle:     var(--neutral-500);  /*  5.5:1 on white */
+  --ds-text-disabled:   var(--neutral-400);  /* decorative only — never body copy */
+  --ds-text-on-accent:  var(--neutral-0);
+
+  /* Interactive accent — the readable blue. Links, focus, active states. */
+  --ds-accent:          #1a6ea0;             /*  5.6:1 on white */
+  --ds-accent-hover:    #155a83;
+  --ds-accent-active:   #10486a;
+  --ds-accent-subtle:   #e8f1f7;             /* tinted fill behind accent text */
+
+  /* Status text. Warning sits at hue 26 rather than the 39 an amber wants,
+     because amber only reaches 4.5:1 on white by going dark, and dark amber
+     is brown. Orange gets there without the mud. */
+  --ds-success:         #1c6b4b;             /*  6.5:1 on white */
+  --ds-success-subtle:  #e6f4ee;
+  --ds-warning:         #b54e00;             /*  5.2:1 on white */
+  --ds-warning-subtle:  #fdf3e8;
+  --ds-danger:          #b3261e;             /*  6.5:1 on white */
+  --ds-danger-subtle:   #fdeceb;
+
+  /* Vivid status. Decorative graphics only — alert rules, indicator dots.
+     Never text, and never the sole carrier of meaning, which is why
+     --ds-warning-vivid is allowed to be a true amber that no text could be. */
+  --ds-accent-vivid:    #2b8fc7;
+  --ds-success-vivid:   #1f9d6b;
+  --ds-warning-vivid:   #f59e0b;
+  --ds-danger-vivid:    #dc3b30;
+
+  /* Focus ring — same in both themes, always visible against both surfaces. */
+  --ds-focus:           var(--ds-accent);
+  --ds-focus-ring:      0 0 0 3px rgba(26, 110, 160, 0.35);
+
+  /* THE GRADIENT. Accent only — see usage rules in README. */
+  --ds-gradient: linear-gradient(
+    135deg,
+    var(--brand-grad-1) 0%,
+    var(--brand-grad-2) 55%,
+    var(--brand-grad-3) 100%
+  ); /* @kind color */
+  /* Text sitting on the gradient. White clears 9.3:1 even on the lightest stop. */
+  --ds-text-on-gradient: var(--neutral-0);
+  /* 3px brand bar / underline / rule version of the gradient. */
+  --ds-gradient-bar: linear-gradient(90deg, var(--brand-grad-1), var(--brand-grad-3)); /* @kind color */
+
+  /* Elevation — navy-tinted, never neutral black. */
+  --ds-shadow-sm: 0 1px 2px rgba(11, 22, 32, 0.06);
+  --ds-shadow-md: 0 2px 4px rgba(11, 22, 32, 0.06), 0 4px 12px rgba(11, 22, 32, 0.08);
+  --ds-shadow-lg: 0 8px 24px rgba(11, 22, 32, 0.12);
+}
+
+/* ---------------------------------------------------------------------------
+   SEMANTIC TOKENS — DARK
+   Applies on system preference, and on an explicit [data-theme="dark"] which
+   always wins so a manual toggle can override the OS.
+   Surfaces are navy-tinted near-black, never pure #000 — pure black against
+   near-white text is harsh and causes halation on OLED.
+   --------------------------------------------------------------------------- */
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+
+    --ds-surface:         var(--neutral-950);
+    --ds-surface-sunken:  #071019;
+    --ds-surface-raised:  var(--neutral-900);
+    --ds-surface-inset:   #101d28;
+
+    --ds-border:          var(--neutral-800);
+    --ds-border-strong:   #2e4859;
+
+    --ds-text:            #eef3f7;            /* 16.4:1 on surface */
+    --ds-text-muted:      #b3c3d0;            /* 10.1:1 on surface */
+    --ds-text-subtle:     #8598a8;            /*  6.1:1 on surface */
+    --ds-text-disabled:   #5d6b7a;
+    --ds-text-on-accent:  #071019;
+
+    --ds-accent:          #5eb3e4;            /*  7.9:1 on surface */
+    --ds-accent-hover:    #82c6ec;
+    --ds-accent-active:   #a3d6f2;
+    --ds-accent-subtle:   #14293a;
+
+    --ds-success:         #5cc99b;
+    --ds-success-subtle:  #0e2b21;
+    --ds-warning:         #e0a648;
+    --ds-warning-subtle:  #2e2211;
+    --ds-danger:          #f2837c;
+    --ds-danger-subtle:   #351a19;
+
+    /* On dark the status colors are already bright enough to work as graphics,
+       so vivid tracks them rather than introducing a second set. */
+    --ds-accent-vivid:    #5eb3e4;
+    --ds-success-vivid:   #5cc99b;
+    --ds-warning-vivid:   #f5b23c;
+    --ds-danger-vivid:    #f2837c;
+
+    --ds-focus:           #5eb3e4;
+    --ds-focus-ring:      0 0 0 3px rgba(94, 179, 228, 0.40);
+
+    /* Gradient lifted so it still reads as an accent panel against a dark page.
+       The shipping gradient would sink into the background at these values. */
+    --ds-gradient: linear-gradient(135deg, #2d6a8d 0%, #1b4a66 55%, #123950 100%); /* @kind color */
+    --ds-text-on-gradient: #ffffff;           /* @kind color */
+    --ds-gradient-bar: linear-gradient(90deg, #5eb3e4, #2d6a8d); /* @kind color */
+
+    --ds-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.40);
+    --ds-shadow-md: 0 2px 4px rgba(0, 0, 0, 0.40), 0 4px 12px rgba(0, 0, 0, 0.48);
+    --ds-shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.56);
+  }
+}
+
+/* Explicit light — repeated under an attribute scope so a manual toggle beats the
+   OS preference. Higher specificity than the bare :root above, so order-independent. */
+:root[data-theme="light"] {
+  color-scheme: light;
+
+  /* Surfaces — white carries the system. */
+  --ds-surface:         var(--neutral-0);
+  --ds-surface-sunken:  var(--neutral-50);
+  --ds-surface-raised:  var(--neutral-0);
+  --ds-surface-inset:   var(--neutral-100);
+
+  /* Lines */
+  --ds-border:          var(--neutral-200);
+  --ds-border-strong:   var(--neutral-300);
+
+  /* Text */
+  --ds-text:            var(--brand-navy);   /* 13.4:1 on white */
+  --ds-text-muted:      var(--neutral-600);  /*  6.9:1 on white */
+  --ds-text-subtle:     var(--neutral-500);  /*  5.5:1 on white */
+  --ds-text-disabled:   var(--neutral-400);  /* decorative only — never body copy */
+  --ds-text-on-accent:  var(--neutral-0);
+
+  /* Interactive accent — the readable blue. Links, focus, active states. */
+  --ds-accent:          #1a6ea0;             /*  5.6:1 on white */
+  --ds-accent-hover:    #155a83;
+  --ds-accent-active:   #10486a;
+  --ds-accent-subtle:   #e8f1f7;             /* tinted fill behind accent text */
+
+  /* Status text. Warning sits at hue 26 rather than the 39 an amber wants,
+     because amber only reaches 4.5:1 on white by going dark, and dark amber
+     is brown. Orange gets there without the mud. */
+  --ds-success:         #1c6b4b;             /*  6.5:1 on white */
+  --ds-success-subtle:  #e6f4ee;
+  --ds-warning:         #b54e00;             /*  5.2:1 on white */
+  --ds-warning-subtle:  #fdf3e8;
+  --ds-danger:          #b3261e;             /*  6.5:1 on white */
+  --ds-danger-subtle:   #fdeceb;
+
+  /* Vivid status. Decorative graphics only — alert rules, indicator dots.
+     Never text, and never the sole carrier of meaning, which is why
+     --ds-warning-vivid is allowed to be a true amber that no text could be. */
+  --ds-accent-vivid:    #2b8fc7;
+  --ds-success-vivid:   #1f9d6b;
+  --ds-warning-vivid:   #f59e0b;
+  --ds-danger-vivid:    #dc3b30;
+
+  /* Focus ring — same in both themes, always visible against both surfaces. */
+  --ds-focus:           var(--ds-accent);
+  --ds-focus-ring:      0 0 0 3px rgba(26, 110, 160, 0.35);
+
+  /* THE GRADIENT. Accent only — see usage rules in README. */
+  --ds-gradient: linear-gradient(
+    135deg,
+    var(--brand-grad-1) 0%,
+    var(--brand-grad-2) 55%,
+    var(--brand-grad-3) 100%
+  ); /* @kind color */
+  /* Text sitting on the gradient. White clears 9.3:1 even on the lightest stop. */
+  --ds-text-on-gradient: var(--neutral-0);
+  /* 3px brand bar / underline / rule version of the gradient. */
+  --ds-gradient-bar: linear-gradient(90deg, var(--brand-grad-1), var(--brand-grad-3)); /* @kind color */
+
+  /* Elevation — navy-tinted, never neutral black. */
+  --ds-shadow-sm: 0 1px 2px rgba(11, 22, 32, 0.06);
+  --ds-shadow-md: 0 2px 4px rgba(11, 22, 32, 0.06), 0 4px 12px rgba(11, 22, 32, 0.08);
+  --ds-shadow-lg: 0 8px 24px rgba(11, 22, 32, 0.12);
+}
+
+/* Explicit dark — duplicated rather than @apply'd so a manual toggle works
+   regardless of what the OS reports. */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  --ds-surface:         var(--neutral-950);
+  --ds-surface-sunken:  #071019;
+  --ds-surface-raised:  var(--neutral-900);
+  --ds-surface-inset:   #101d28;
+
+  --ds-border:          var(--neutral-800);
+  --ds-border-strong:   #2e4859;
+
+  --ds-text:            #eef3f7;
+  --ds-text-muted:      #b3c3d0;
+  --ds-text-subtle:     #8598a8;
+  --ds-text-disabled:   #5d6b7a;
+  --ds-text-on-accent:  #071019;
+
+  --ds-accent:          #5eb3e4;
+  --ds-accent-hover:    #82c6ec;
+  --ds-accent-active:   #a3d6f2;
+  --ds-accent-subtle:   #14293a;
+
+  --ds-success:         #5cc99b;
+  --ds-success-subtle:  #0e2b21;
+  --ds-warning:         #e0a648;
+  --ds-warning-subtle:  #2e2211;
+  --ds-danger:          #f2837c;
+  --ds-danger-subtle:   #351a19;
+
+  --ds-accent-vivid:    #5eb3e4;
+  --ds-success-vivid:   #5cc99b;
+  --ds-warning-vivid:   #f5b23c;
+  --ds-danger-vivid:    #f2837c;
+
+  --ds-focus:           #5eb3e4;
+  --ds-focus-ring:      0 0 0 3px rgba(94, 179, 228, 0.40);
+
+  --ds-gradient: linear-gradient(135deg, #2d6a8d 0%, #1b4a66 55%, #123950 100%); /* @kind color */
+  --ds-text-on-gradient: #ffffff; /* @kind color */
+  --ds-gradient-bar: linear-gradient(90deg, #5eb3e4, #2d6a8d); /* @kind color */
+
+  --ds-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.40);
+  --ds-shadow-md: 0 2px 4px rgba(0, 0, 0, 0.40), 0 4px 12px rgba(0, 0, 0, 0.48);
+  --ds-shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.56);
+}
+
+/** CHANGELOG
+ * v1.0 (2026-07-25): Initial release. Palette derived from projects_and_mods_logo_pack v1.2.
+ * v1.2 (2026-07-26): Theme scopes restructured so every token sits under :root or a
+ *   [data-theme] scope — the OS-dark block dropped :not([data-theme="light"]) and the
+ *   light set is now repeated under :root[data-theme="light"], which wins on specificity
+ *   rather than on selector negation. Values unchanged in both themes.
+ * v1.1 (2026-07-26): Light warning moved from #8a5a00 (hue 39, read as brown) to
+ *   #b54e00 (hue 26, orange), with a warmer #fdf3e8 fill. Added vivid status tokens
+ *   for decorative graphics, which is what lets the warning rule be a true amber.
+ *   Dark theme text colors unchanged.
+ */

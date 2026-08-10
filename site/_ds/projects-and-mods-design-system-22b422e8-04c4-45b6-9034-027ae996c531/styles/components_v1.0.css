@@ -1,0 +1,349 @@
+/**
+ * file: components_v1.0.css
+ * version: 1.0.2
+ * author: Samuel Cao
+ * created: 2026-07-25
+ * last_updated: 2026-07-26
+ * description: Component classes — buttons, forms, cards, badges, alerts, tables, and the gradient accent surfaces.
+ * ai_update: Update last_updated and version. Rename file to match. Append changelog comment at bottom.
+ */
+
+/* ===========================================================================
+   GRADIENT ACCENTS
+   The only places the brand gradient is allowed to appear. Everything else in
+   the system stays on flat surfaces. See README for the usage rule.
+   =========================================================================== */
+
+/* Hero / masthead panel. White text clears 9.3:1 on every stop. */
+.ds-gradient-panel {
+  background: var(--ds-gradient);
+  color: var(--ds-text-on-gradient);
+  border-radius: var(--ds-radius-lg);
+  padding: var(--ds-space-10) var(--ds-space-8);
+}
+.ds-gradient-panel h1,
+.ds-gradient-panel h2,
+.ds-gradient-panel h3,
+.ds-gradient-panel p { color: inherit; }
+.ds-gradient-panel a { color: #ffffff; text-decoration-thickness: 2px; }
+
+/* 3px rule. The lightest-touch way to use the gradient — a bar under a heading,
+   along the top of a card, or as a section divider. */
+.ds-gradient-rule {
+  height: 3px;
+  border: 0;
+  margin: 0 0 var(--ds-space-5);
+  border-radius: var(--ds-radius-pill);
+  background: var(--ds-gradient-bar);
+}
+
+/* Square badge lockup, mirroring the compact mark. */
+.ds-gradient-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: var(--ds-radius-md);
+  background: var(--ds-gradient);
+  color: var(--ds-text-on-gradient);
+  font-family: var(--ds-font-display);
+  font-weight: var(--ds-weight-black);
+  letter-spacing: var(--ds-tracking-wide);
+}
+
+/* ===========================================================================
+   BUTTONS
+   =========================================================================== */
+
+.ds-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--ds-space-2);
+  min-height: var(--ds-target-min);
+  padding: var(--ds-space-3) var(--ds-space-5);
+  border: var(--ds-border-width) solid transparent;
+  border-radius: var(--ds-radius-md);
+  font-family: var(--ds-font-sans);
+  font-size: var(--ds-text-sm);
+  font-weight: var(--ds-weight-semibold);
+  line-height: 1;
+  text-decoration: none;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background-color var(--ds-duration-fast) var(--ds-ease),
+              border-color var(--ds-duration-fast) var(--ds-ease),
+              color var(--ds-duration-fast) var(--ds-ease),
+              box-shadow var(--ds-duration-fast) var(--ds-ease);
+}
+.ds-btn:focus-visible { outline: 2px solid var(--ds-focus); outline-offset: 2px; }
+.ds-btn:disabled,
+.ds-btn[aria-disabled="true"] { opacity: 0.45; cursor: not-allowed; }
+
+/* Primary — the one component that carries the gradient by default. This is
+   the gradient's main job in the system: mark the single most important action
+   on a screen. Two on one screen means one of them isn't primary. */
+.ds-btn--primary {
+  background: var(--ds-gradient);
+  color: var(--ds-text-on-gradient);
+  box-shadow: var(--ds-shadow-sm);
+}
+.ds-btn--primary:hover:not(:disabled) { box-shadow: var(--ds-shadow-md); filter: brightness(1.12); }
+.ds-btn--primary:active:not(:disabled) { filter: brightness(0.94); box-shadow: none; }
+
+/* Flat navy alternative for dense UI, tables, toolbars — anywhere a gradient
+   at small size would just look like noise. */
+.ds-btn--solid {
+  background: var(--ds-text);
+  color: var(--ds-surface);
+}
+.ds-btn--solid:hover:not(:disabled) { background: var(--ds-text-muted); }
+
+.ds-btn--secondary {
+  background: var(--ds-surface);
+  color: var(--ds-text);
+  border-color: var(--ds-border-strong);
+}
+.ds-btn--secondary:hover:not(:disabled) {
+  background: var(--ds-surface-sunken);
+  border-color: var(--ds-text-subtle);
+}
+
+.ds-btn--ghost {
+  background: transparent;
+  color: var(--ds-accent);
+}
+.ds-btn--ghost:hover:not(:disabled) { background: var(--ds-accent-subtle); }
+
+.ds-btn--danger {
+  background: var(--ds-danger);
+  color: #ffffff;
+}
+:root[data-theme="dark"] .ds-btn--danger { color: #351a19; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .ds-btn--danger { color: #351a19; }
+}
+.ds-btn--danger:hover:not(:disabled) { filter: brightness(1.1); }
+
+/* Sizes. Small drops below the 44px target, so reserve it for pointer-dense
+   desktop UI — never as the only tap target on a touch screen. */
+.ds-btn--sm { min-height: 32px; padding: var(--ds-space-2) var(--ds-space-3); font-size: var(--ds-text-xs); }
+.ds-btn--lg { min-height: 52px; padding: var(--ds-space-4) var(--ds-space-8); font-size: var(--ds-text-base); }
+.ds-btn--block { display: flex; width: 100%; }
+
+/* ===========================================================================
+   FORMS
+   =========================================================================== */
+
+.ds-field { margin-bottom: var(--ds-space-5); max-width: var(--ds-measure-narrow); }
+
+.ds-label {
+  display: block;
+  margin-bottom: var(--ds-space-2);
+  font-size: var(--ds-text-sm);
+  font-weight: var(--ds-weight-semibold);
+  color: var(--ds-text);
+}
+.ds-label__required { color: var(--ds-danger); margin-left: 0.15em; }
+
+.ds-input,
+.ds-select,
+.ds-textarea {
+  display: block;
+  width: 100%;
+  min-height: var(--ds-target-min);
+  padding: var(--ds-space-3);
+  border: var(--ds-border-width) solid var(--ds-border-strong);
+  border-radius: var(--ds-radius-md);
+  background: var(--ds-surface);
+  color: var(--ds-text);
+  font-family: var(--ds-font-sans);
+  font-size: var(--ds-text-base);   /* 16px — anything smaller zooms on iOS */
+  line-height: var(--ds-leading-snug);
+  transition: border-color var(--ds-duration-fast) var(--ds-ease),
+              box-shadow var(--ds-duration-fast) var(--ds-ease);
+}
+.ds-input::placeholder,
+.ds-textarea::placeholder { color: var(--ds-text-subtle); opacity: 1; }
+
+.ds-input:focus,
+.ds-select:focus,
+.ds-textarea:focus {
+  outline: none;
+  border-color: var(--ds-accent);
+  box-shadow: var(--ds-focus-ring);
+}
+.ds-input:disabled,
+.ds-select:disabled,
+.ds-textarea:disabled {
+  background: var(--ds-surface-inset);
+  color: var(--ds-text-subtle);
+  cursor: not-allowed;
+}
+
+.ds-textarea { min-height: 120px; resize: vertical; }
+
+.ds-select {
+  appearance: none;
+  padding-right: var(--ds-space-10);
+  background-image: linear-gradient(45deg, transparent 50%, currentColor 50%),
+                    linear-gradient(135deg, currentColor 50%, transparent 50%);
+  background-position: calc(100% - 20px) 52%, calc(100% - 14px) 52%;
+  background-size: 6px 6px, 6px 6px;
+  background-repeat: no-repeat;
+}
+
+/* Error state carries a border, an icon-free message, and aria-describedby in
+   the markup — never color alone. */
+.ds-input[aria-invalid="true"],
+.ds-select[aria-invalid="true"],
+.ds-textarea[aria-invalid="true"] { border-color: var(--ds-danger); border-width: var(--ds-border-width-thick); }
+
+.ds-help  { margin-top: var(--ds-space-2); font-size: var(--ds-text-sm); color: var(--ds-text-muted); }
+.ds-error { margin-top: var(--ds-space-2); font-size: var(--ds-text-sm); font-weight: var(--ds-weight-medium); color: var(--ds-danger); }
+
+.ds-check {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--ds-space-3);
+  margin-bottom: var(--ds-space-3);
+  cursor: pointer;
+  max-width: var(--ds-measure-narrow);
+}
+.ds-check input {
+  flex: none;
+  width: 20px; height: 20px;
+  margin: 2px 0 0;
+  accent-color: var(--ds-accent);
+  cursor: pointer;
+}
+.ds-check span { font-size: var(--ds-text-base); }
+
+/* ===========================================================================
+   CARDS
+   =========================================================================== */
+
+.ds-card {
+  padding: var(--ds-space-6);
+  border: var(--ds-border-width) solid var(--ds-border);
+  border-radius: var(--ds-radius-lg);
+  background: var(--ds-surface-raised);
+  box-shadow: var(--ds-shadow-sm);
+}
+.ds-card > :last-child { margin-bottom: 0; }
+
+.ds-card--interactive {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  transition: box-shadow var(--ds-duration) var(--ds-ease),
+              border-color var(--ds-duration) var(--ds-ease),
+              transform var(--ds-duration) var(--ds-ease);
+}
+.ds-card--interactive:hover {
+  border-color: var(--ds-border-strong);
+  box-shadow: var(--ds-shadow-md);
+  transform: translateY(-2px);
+  color: inherit;
+}
+
+/* Gradient accent along the top edge — the card version of .ds-gradient-rule.
+   Painted as a pseudo-element rather than border-image, which slices onto all
+   four edges and outlines the whole card. */
+.ds-card--accent { position: relative; overflow: hidden; }
+.ds-card--accent::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 3px;
+  background: var(--ds-gradient-bar);
+}
+
+.ds-card__title { margin-bottom: var(--ds-space-2); font-size: var(--ds-text-lg); }
+.ds-card__meta  { font-size: var(--ds-text-sm); color: var(--ds-text-muted); }
+
+/* ===========================================================================
+   BADGES
+   =========================================================================== */
+
+.ds-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--ds-space-1);
+  padding: 0.2em 0.65em;
+  border-radius: var(--ds-radius-pill);
+  background: var(--ds-surface-inset);
+  color: var(--ds-text-muted);
+  font-size: var(--ds-text-xs);
+  font-weight: var(--ds-weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: var(--ds-tracking-caps);
+  white-space: nowrap;
+}
+.ds-badge--accent  { background: var(--ds-accent-subtle);  color: var(--ds-accent); }
+.ds-badge--success { background: var(--ds-success-subtle); color: var(--ds-success); }
+.ds-badge--warning { background: var(--ds-warning-subtle); color: var(--ds-warning); }
+.ds-badge--danger  { background: var(--ds-danger-subtle);  color: var(--ds-danger); }
+
+/* ===========================================================================
+   ALERTS
+   Left rule + heading text, so the meaning survives without color.
+   =========================================================================== */
+
+.ds-alert {
+  display: flex;
+  gap: var(--ds-space-3);
+  padding: var(--ds-space-4);
+  border: var(--ds-border-width) solid var(--ds-border);
+  border-left: 4px solid var(--ds-text-subtle);
+  border-radius: var(--ds-radius-md);
+  background: var(--ds-surface-sunken);
+  max-width: var(--ds-measure);
+}
+.ds-alert > div > :last-child { margin-bottom: 0; }
+.ds-alert__title { margin: 0 0 var(--ds-space-1); font-size: var(--ds-text-base); font-family: var(--ds-font-sans); font-weight: var(--ds-weight-bold); letter-spacing: 0; }
+.ds-alert p { font-size: var(--ds-text-sm); margin-bottom: 0; }
+
+/* Rules take the vivid tokens. The rule is decoration — every alert states its
+   meaning in the title text — so it is free to be more saturated than any
+   text color could be at AA. */
+.ds-alert--info    { border-left-color: var(--ds-accent-vivid);  background: var(--ds-accent-subtle); }
+.ds-alert--success { border-left-color: var(--ds-success-vivid); background: var(--ds-success-subtle); }
+.ds-alert--warning { border-left-color: var(--ds-warning-vivid); background: var(--ds-warning-subtle); }
+.ds-alert--danger  { border-left-color: var(--ds-danger-vivid);  background: var(--ds-danger-subtle); }
+
+/* ===========================================================================
+   TABLE
+   =========================================================================== */
+
+.ds-table-wrap { overflow-x: auto; }
+
+.ds-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--ds-text-sm);
+}
+.ds-table th,
+.ds-table td {
+  padding: var(--ds-space-3);
+  text-align: left;
+  border-bottom: var(--ds-border-width) solid var(--ds-border);
+}
+.ds-table th {
+  font-size: var(--ds-text-xs);
+  font-weight: var(--ds-weight-bold);
+  text-transform: uppercase;
+  letter-spacing: var(--ds-tracking-caps);
+  color: var(--ds-text-muted);
+  border-bottom-color: var(--ds-border-strong);
+  white-space: nowrap;
+}
+.ds-table tbody tr:hover { background: var(--ds-surface-sunken); }
+.ds-table td:last-child, .ds-table th:last-child { text-align: right; }
+
+/** CHANGELOG
+ * v1.0 (2026-07-25): Initial release.
+ * v1.0.1 (2026-07-25): Accent card top rule moved off border-image, which sliced onto all four edges.
+ * v1.0.2 (2026-07-26): Alert rules now use the vivid status tokens.
+ */

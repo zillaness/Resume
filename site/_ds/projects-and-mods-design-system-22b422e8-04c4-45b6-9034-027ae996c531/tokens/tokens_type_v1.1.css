@@ -1,0 +1,72 @@
+/**
+ * file: tokens_type_v1.1.css
+ * version: 1.1
+ * author: Samuel Cao
+ * created: 2026-07-25
+ * last_updated: 2026-07-26
+ * description: Typography tokens — one system sans across body and display, with caps and tracking carrying the brand. No webfonts.
+ * ai_update: Update last_updated and version. Rename file to match. Append changelog comment at bottom.
+ */
+
+:root {
+  /* Body / UI. System stack — no network fetch, no FOUT, renders natively everywhere. */
+  --ds-font-sans:
+    system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+
+  /* Display. Same stack as body — the brand comes from weight, caps, and tracking
+     in .ds-display, not from a different family.
+
+     v1.0 led with "Archivo Narrow", "Roboto Condensed", "Oswald",
+     "Franklin Gothic Medium", "Arial Narrow" ahead of this stack. None of them
+     resolved in the reference viewer, so every heading in the system was already
+     rendering as this bold system sans — the token described an intention rather
+     than a result, and it made tooling demand a font file the system does not want.
+     Dropped deliberately: nothing here is downloaded, so there is no @font-face
+     anywhere in this closure and there should not be one. If a condensed face is
+     ever wanted, that is a brand decision, not a fallback. */
+  --ds-font-display: var(--ds-font-sans);
+
+  --ds-font-mono:
+    ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+
+  /* Scale — 1.25 major third off a 16px base, rounded to whole pixels. */
+  --ds-text-xs:   0.75rem;    /* 12px */
+  --ds-text-sm:   0.875rem;   /* 14px */
+  --ds-text-base: 1rem;       /* 16px */
+  --ds-text-md:   1.125rem;   /* 18px */
+  --ds-text-lg:   1.375rem;   /* 22px */
+  --ds-text-xl:   1.75rem;    /* 28px */
+  --ds-text-2xl:  2.25rem;    /* 36px */
+  --ds-text-3xl:  2.875rem;   /* 46px */
+
+  /* Line height. Body sits at 1.6 — the readability requirement drives this. */
+  --ds-leading-tight:   1.15;
+  --ds-leading-snug:    1.3;
+  --ds-leading-normal:  1.6;
+  --ds-leading-relaxed: 1.75;
+
+  --ds-weight-normal:   400;
+  --ds-weight-medium:   500;
+  --ds-weight-semibold: 600;
+  --ds-weight-bold:     700;
+  --ds-weight-black:    800;
+
+  --ds-tracking-tight:  -0.015em;
+  --ds-tracking-normal: 0;
+  --ds-tracking-wide:   0.02em;
+  --ds-tracking-caps:   0.06em;
+
+  /* Measure. Body copy never runs wider than this — the single biggest
+     readability lever in the whole system. */
+  --ds-measure: 68ch;
+  --ds-measure-narrow: 52ch;
+}
+
+/** CHANGELOG
+ * v1.0 (2026-07-25): Initial release.
+ * v1.1 (2026-07-26): --ds-font-display collapsed to the body sans stack. The five
+ *   condensed families it led with resolved on no reference machine, so headings were
+ *   already rendering as the system sans; the stack now says so. Caps + tracking in
+ *   .ds-display carry the brand. No rendered change; removes the phantom webfont
+ *   dependency. Diverges from upstream tokens_type_v1.0.css.
+ */
