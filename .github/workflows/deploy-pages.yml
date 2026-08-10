@@ -4,8 +4,6 @@ on:
   push:
     branches:
       - main
-      - master
-      - claude/portfolio-github-pages-nld2iw
   workflow_dispatch:
 
 permissions:
