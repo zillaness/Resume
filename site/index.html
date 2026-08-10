@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Portfolio — placeholder</title>
+<style>
+  :root {
+    --bg: #fbfaf8;
+    --fg: #1a1a19;
+    --muted: #6b6a66;
+    --rule: #e2dfd8;
+    --card: #ffffff;
+    --accent: #b05730;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16161a;
+      --fg: #eceae5;
+      --muted: #9b988f;
+      --rule: #2e2e34;
+      --card: #1e1e23;
+      --accent: #e0885c;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 8vh 6vw;
+    background: var(--bg);
+    color: var(--fg);
+    font: 16px/1.6 ui-sans-serif, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+  }
+  main { max-width: 46rem; margin: 0 auto; }
+  h1 { font-size: clamp(1.7rem, 4vw, 2.4rem); line-height: 1.2; margin: 0 0 .4rem; letter-spacing: -.02em; }
+  .lede { color: var(--muted); margin: 0 0 2.5rem; }
+  h2 { font-size: 1rem; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin: 2.5rem 0 .75rem; }
+  ol { padding-left: 1.2rem; margin: 0; }
+  li { margin-bottom: .6rem; }
+  code {
+    background: var(--card);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    padding: .1em .4em;
+    font: .875em ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  }
+  pre {
+    background: var(--card);
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    padding: 1rem;
+    overflow-x: auto;
+  }
+  pre code { background: none; border: 0; padding: 0; }
+  .note {
+    border-left: 3px solid var(--accent);
+    padding: .25rem 0 .25rem 1rem;
+    color: var(--muted);
+    margin: 1.5rem 0;
+  }
+  footer { margin-top: 4rem; padding-top: 1.5rem; border-top: 1px solid var(--rule); color: var(--muted); font-size: .875rem; }
+</style>
+</head>
+<body>
+<main>
+  <h1>This is the placeholder.</h1>
+  <p class="lede">The Pages deploy is wired up and working. Replace this file with your portfolio HTML and it publishes automatically.</p>
+
+  <h2>Drop your file here</h2>
+  <pre><code>site/index.html</code></pre>
+  <p>Overwrite this exact path. Anything else you put in <code>site/</code> — images, CSS, fonts, a PDF résumé — ships alongside it and is reachable at the same relative paths you use locally.</p>
+
+  <h2>Uploading through the browser</h2>
+  <ol>
+    <li>Open the repo, navigate into the <code>site/</code> folder.</li>
+    <li><strong>Add file → Upload files</strong>, then drag your HTML in named <code>index.html</code>.</li>
+    <li>Commit. The deploy workflow runs on push and the live page updates in about a minute.</li>
+  </ol>
+
+  <h2>Or from a terminal</h2>
+  <pre><code>cp /path/to/your-portfolio.html site/index.html
+git add site &amp;&amp; git commit -m "Add portfolio page"
+git push</code></pre>
+
+  <div class="note">
+    GitHub blocks any single file over 100&nbsp;MB, and warns above 50&nbsp;MB. If your HTML is that large it's almost certainly base64-embedded images or video — pull those out into <code>site/assets/</code> and reference them by filename. The page will also load far faster.
+  </div>
+
+  <footer>Delete this file once your real page is in place.</footer>
+</main>
+</body>
+</html>
