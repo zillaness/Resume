@@ -1,36 +1,37 @@
 # Portfolio site
 
-Static portfolio published to GitHub Pages. Everything inside `site/` is the published site; the repo root holds only config.
+Samuel Cao's portfolio, published to GitHub Pages.
+
+**Live at <https://zillaness.github.io/Resume/portfolio/>**
+
+`https://zillaness.github.io/Resume/` redirects there, so either link works.
 
 ```
-site/
-  index.html    <- your portfolio page goes here
-  assets/       <- images, CSS, fonts, PDFs
-  .nojekyll     <- stops Pages from running Jekyll over the files
+site/                     <- everything in here is published
+  index.html              <- redirect to portfolio/
+  .nojekyll               <- stops Pages from running Jekyll over the files
+  portfolio/
+    index.html            <- the portfolio page
+    support.js
+    _ds/                  <- design-system tokens and styles
+    uploads/              <- images and media (~159 MB)
+    assets/
 .github/workflows/deploy-pages.yml
 ```
 
-## One-time setup
+## How the URL is built
 
-In the repo: **Settings → Pages → Build and deployment → Source: GitHub Actions**.
-
-Without this the workflow will fail at the deploy step with a "Pages not enabled" error.
+GitHub Pages serves a project site at `https://<user>.github.io/<repo>/`, so `Resume` is the repo name and can only be changed by renaming the repo. Everything after that is a directory inside `site/` — which is why the page lives in `site/portfolio/`.
 
 ## Publishing
 
-Put your HTML at `site/index.html` and push. The workflow uploads the whole `site/` directory and deploys it. The live URL shows up in the workflow run summary and under Settings → Pages.
+Push to `main`. The workflow uploads the whole `site/` directory and deploys it; the live URL appears in the run summary and under Settings → Pages. A deploy takes about a minute.
 
-Via the browser: open `site/`, use **Add file → Upload files**, drag the HTML in named `index.html`, commit.
+Use relative paths in the HTML (`uploads/photo.jpg`, not `/uploads/photo.jpg`) — the site is served from a subdirectory, so absolute paths break.
 
-Via git:
+## Pages setup
 
-```sh
-cp /path/to/your-portfolio.html site/index.html
-git add site && git commit -m "Add portfolio page"
-git push
-```
-
-Relative paths behave the same as they do locally — `<img src="assets/headshot.jpg">` resolves as long as the file sits at `site/assets/headshot.jpg`. Use relative paths, not paths starting with `/`, since the site is served from a subdirectory (`/Resume/`) unless you attach a custom domain.
+Already configured: **Settings → Pages → Build and deployment → Source: GitHub Actions**. If the deploy step ever fails with "Pages not enabled", that setting was reset.
 
 ## Size limits
 
@@ -40,8 +41,8 @@ Relative paths behave the same as they do locally — `<img src="assets/headshot
 | Published site | 1 GB |
 | Recommended page weight | under 10 MB |
 
-A "large" HTML file is usually base64 data URIs. Extract the media into `site/assets/` and reference it by filename — it stays under the limits and the page loads much faster. Git LFS is checked out by the workflow if you need it, but Pages serves LFS files poorly, so treat it as a last resort.
+The `uploads/` directory is ~159 MB — well under the site cap, but heavy for a first visit. Compressing the largest images and GIFs is the cheapest speed win available.
 
 ## Custom domain
 
-Add a `site/CNAME` file containing the bare domain (e.g. `example.com`), then point DNS at GitHub Pages.
+Add a `site/CNAME` file containing the bare domain (e.g. `example.com`), then point DNS at GitHub Pages. That would serve the site at the domain root and make the `/Resume/` path disappear.
